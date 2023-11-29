@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "litematica-mms-ext",
-	"version": "${version}",
+	"version": "1.19.2-${version}",
 	"name": "litematica-mms-ext",
 	"description": "Extensions for Litematica",
 	"authors": [
@@ -21,7 +21,7 @@
 		"litematica-mms-ext.mixins.json"
 	],
 	"depends": {
-		"minecraft": "~1.20.2",
+		"minecraft": "~1.19.2",
 		"malilib": "${malilib_dependency}",
 		"litematica": "${litematica_dependency}"
 	}
