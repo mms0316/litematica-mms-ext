@@ -3,6 +3,17 @@ plugins {
     id 'maven-publish'
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs '../common/java'
+        }
+        resources {
+            srcDirs '../common/resources'
+        }
+    }
+}
+
 version = project.mod_version
 group = project.maven_group
 
@@ -49,11 +60,15 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "minecraft_dependency", project.minecraft_dependency
     inputs.property "malilib_dependency", project.malilib_dependency
     inputs.property "litematica_dependency", project.litematica_dependency
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version,
+        expand  "version"              : project.version,
+                "minecraft_version"    : project.minecraft_version,
+                "minecraft_dependency" : project.minecraft_dependency,
                 "malilib_dependency"   : project.malilib_dependency,
                 "litematica_dependency": project.litematica_dependency
     }
@@ -95,3 +110,9 @@ publishing {
         // retrieving dependencies.
     }
 }
+
+tasks.register("copyLibs", Copy) {
+    from(layout.buildDirectory.dir("libs"))
+    into(rootProject.layout.buildDirectory.dir("libs"))
+}
+tasks.named("build") { finalizedBy("copyLibs") }
